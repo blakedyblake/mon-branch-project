@@ -2,7 +2,13 @@ orbs: # declare what orbs we are going to use
   node: circleci/node@2.0.2 # the node orb provides common node-related configuration
 
 version: 2.1 # using 2.1 provides access to orbs and other features
-
+steps:
+- script: echo installing packages
+- task: Npm@1
+  displayName: npm test
+  inputs:
+    command: custom
+    customCommand: run test
 workflows:
   matrix-tests:
     jobs:
@@ -12,12 +18,4 @@ workflows:
           version: 12.16.0
       - node/test:
           version: 10.19.0
-      - node/test:
-          steps:
-          - script: echo installing packages
-          - task: Npm@1
-            displayName: npm test
-            inputs:
-              command: custom
-              customCommand: run test
-                    
+      
